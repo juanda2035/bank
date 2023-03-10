@@ -14,18 +14,17 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import com.bank.domain.Customer;
 import com.bank.dto.CustomerDTO;
 
-
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
 class CustomerMapperTest {
 
 	@Autowired
 	CustomerMapper customerMapper;
-	
+
 	@Test
 	void debeMappearDeCustomeraCustomerDTO() {
-		
-		Customer customer=new Customer();
+
+		Customer customer = new Customer();
 		customer.setAccounts(null);
 		customer.setAddress("Avenidad siempre viva 123");
 		customer.setCustId(2020);
@@ -36,22 +35,21 @@ class CustomerMapperTest {
 		customer.setRegisteredAccounts(null);
 		customer.setToken(UUID.randomUUID().toString().toUpperCase());
 
-		CustomerDTO customerDTO=null;
-		
-		//Act
-		customerDTO=customerMapper.toCustomerDTO(customer);
-	
-		//Assert
+		CustomerDTO customerDTO = null;
+
+		// Act
+		customerDTO = customerMapper.toCustomerDTO(customer);
+
+		// Assert
 		assertNotNull(customerDTO);
-		
-		
+
 	}
-	
+
 	@Test
 	void debeMappearDeCustomerDTOaCustomer() {
-		
-		//Arrange
-		CustomerDTO customerDTO=new CustomerDTO()	;
+
+		// Arrange
+		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setAddress("Avenida Siempre viva 123");
 		customerDTO.setCustId(202);
 		customerDTO.setEmail("hsimpson@mapu.com");
@@ -60,14 +58,14 @@ class CustomerMapperTest {
 		customerDTO.setPhone("397554947");
 		customerDTO.setToken(UUID.randomUUID().toString().toUpperCase());
 		customerDTO.setDotyId(1);
-		Customer customer=null;
-		
-		//Act
-		customer=customerMapper.toCustomer(customerDTO);
-		
-		//Assert
+		Customer customer = null;
+
+		// Act
+		customer = customerMapper.toCustomer(customerDTO);
+
+		// Assert
 		assertNotNull(customer);
-		
+
 	}
 
 }

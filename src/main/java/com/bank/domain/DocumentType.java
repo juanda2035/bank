@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,14 +34,21 @@ public class DocumentType implements Serializable {
 
 	@Id
 	@Column(name = "doty_id")
+	@NotNull
+	@Min(1)
 	private Integer dotyId;
 
+	@NotNull
 	private Boolean enable;
 
+	@NotNull
+	@NotEmpty
+	@Size(min = 4, max = 200)
 	private String name;
 
 	// bi-directional many-to-one association to Customer
 	@OneToMany(mappedBy = "documentType")
 	private List<Customer> customers;
+
 
 }

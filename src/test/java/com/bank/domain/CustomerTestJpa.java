@@ -1,6 +1,6 @@
 package com.bank.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.UUID;
 
@@ -21,16 +21,17 @@ import org.springframework.transaction.annotation.Transactional;
 @TestMethodOrder(OrderAnnotation.class)
 @Rollback(false)
 class CustomerTestJpa {
-	
+
 	@Autowired
 	EntityManager entityManager;
 
+
 	@Test
 	@Order(1)
-	@Transactional(readOnly = false,  propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	void debeCrearUnCustomer() {
-		//Arrange
-		Customer customer=new Customer();
+		// Arrange
+		Customer customer = new Customer();
 		customer.setAccounts(null);
 		customer.setAddress("Avenidad siempre viva 123");
 		customer.setCustId(2020);
@@ -40,66 +41,64 @@ class CustomerTestJpa {
 		customer.setPhone("5555555");
 		customer.setRegisteredAccounts(null);
 		customer.setToken(UUID.randomUUID().toString().toUpperCase());
-		
-		DocumentType documentType=entityManager.find(DocumentType.class, 1);
-		
+
+		DocumentType documentType = entityManager.find(DocumentType.class, 1);
+
 		customer.setDocumentType(documentType);
-		
-		//Act
+
+		// Act
 		entityManager.persist(customer);
-		
-		//Assert
+
+		// Assert
 		assertNotNull(customer);
-		
-		
+
 	}
-	
+
 	@Test
 	@Order(2)
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	void debeConsultarUnCustomer() {
-		//Arrange
-		Customer customer=null;
-		
-		//Act
-		customer=entityManager.find(Customer.class, 2020);
-		
-		//Assert
+		// Arrange
+		Customer customer = null;
+
+		// Act
+		customer = entityManager.find(Customer.class, 2020);
+
+		// Assert
 		assertNotNull(customer);
 	}
-	
+
 	@Test
 	@Order(3)
-	@Transactional(readOnly = false,  propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	void debeModificarUnCustomer() {
-		//Arrange
-		Customer customer=null;
-		customer=entityManager.find(Customer.class, 2020);
+		// Arrange
+		Customer customer = null;
+		customer = entityManager.find(Customer.class, 2020);
 
-		//Act
+		// Act
 		customer.setEnable(false);
 		entityManager.merge(customer);
-		
-		//Assert
+
+		// Assert
 		assertNotNull(customer);
-		
+
 	}
-	
+
 	@Test
 	@Order(4)
-	@Transactional(readOnly = false,  propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	void debeBorrarUnCustomer() {
-		//Arrange
-		Customer customer=null;
-		customer=entityManager.find(Customer.class, 2020);
+		// Arrange
+		Customer customer = null;
+		customer = entityManager.find(Customer.class, 2020);
 
-		//Act
+		// Act
 		entityManager.remove(customer);
-		
-		//Assert
+
+		// Assert
 		assertNotNull(customer);
-		
+
 	}
 
 }
-

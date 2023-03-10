@@ -25,16 +25,16 @@ import com.bank.domain.DocumentType;
 class CustomerServicetest {
 	@Autowired
 	CustomerService customerService;
-	
+
 	@Autowired
 	DocumentTypeService documentTypeService;
 
 	@Test
 	@Order(1)
 	void debeCrearUnCustomer() throws Exception {
-		//Arrange
-		DocumentType documentType=null;
-		Customer customer=new Customer();
+		// Arrange
+		DocumentType documentType = null;
+		Customer customer = new Customer();
 		customer.setAccounts(null);
 		customer.setAddress("Avenidad siempre viva 123");
 		customer.setCustId(2020);
@@ -44,69 +44,68 @@ class CustomerServicetest {
 		customer.setPhone("5555555");
 		customer.setRegisteredAccounts(null);
 		customer.setToken(UUID.randomUUID().toString().toUpperCase());
-		
-		Optional<DocumentType> documentTypeOptional=documentTypeService.findById(1);	
-		if(documentTypeOptional.isPresent()==false) {
-			documentType=documentTypeOptional.get();
 
-			}
-		
+		Optional<DocumentType> documentTypeOptional = documentTypeService.findById(1);
+		if (documentTypeOptional.isPresent() == false) {
+			documentType = documentTypeOptional.get();
+
+		}
+
 		customer.setDocumentType(documentType);
-		
-		//Act
+
+		// Act
 		customerService.save(customer);
-		
-		//Assert
+
+		// Assert
 		assertNotNull(customer);
-		
-		
+
 	}
-	
+
 	@Test
 	@Order(2)
 	void debeConsultarUnCustomer() throws Exception {
-		//Arrange
-		Optional<Customer> customerOptional=null;
-		
-		//Act
-		customerOptional=customerService.findById(2020);
-		
-		//Assert
+		// Arrange
+		Optional<Customer> customerOptional = null;
+
+		// Act
+		customerOptional = customerService.findById(2020);
+
+		// Assert
 		assertNotNull(customerOptional.isPresent());
 	}
-	
+
 	@Test
 	@Order(3)
 	void debeModificarUnCustomer() throws Exception {
-		//Arrange
-		Optional<Customer> customerOptional=null;
-		Customer customer=null;
-		customerOptional=customerService.findById(2020);
+		// Arrange
+		Optional<Customer> customerOptional = null;
+		Customer customer = null;
+		customerOptional = customerService.findById(2020);
 		assertTrue(customerOptional.isPresent());
-		
-		customer=customerOptional.get()	;
+
+		customer = customerOptional.get();
 		customer.setEnable(false);
-		
-		//Act
+
+		// Act
 		customerService.update(customer);
 
-		//Assert
-		
+		// Assert
+
 		assertFalse(customer.getEnable());
-		
+
 	}
-	
+
 	@Test
 	@Order(4)
-	void debeBorrarUnCustomer() throws Exception{
-		//Arrange
-		Optional<Customer> customerOptional=null;
-		Customer customer=null;
-		customerOptional=customerService.findById(2020);
-		assertTrue(customerOptional.isPresent());			
-		customer=customerOptional.get()	;
-				
-		//Act
+	void debeBorrarUnCustomer() throws Exception {
+		// Arrange
+		Optional<Customer> customerOptional = null;
+		Customer customer = null;
+		customerOptional = customerService.findById(2020);
+		assertTrue(customerOptional.isPresent());
+		customer = customerOptional.get();
+
+		// Act
 		customerService.delete(customer);
 
 	}

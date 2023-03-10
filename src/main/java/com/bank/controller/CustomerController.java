@@ -35,33 +35,33 @@ public class CustomerController {
 	
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody @Valid CustomerDTO customerDTO) throws Exception {
-		
-		Customer customer=customerMapper.toCustomer(customerDTO);
-		
-		customer=customerService.save(customer);
-		customerDTO=customerMapper.toCustomerDTO(customer);
-		
+
+		Customer customer = customerMapper.toCustomer(customerDTO);
+
+		customer = customerService.save(customer);
+		customerDTO = customerMapper.toCustomerDTO(customer);
+
 		return ResponseEntity.ok().body(customerDTO);
-		
+
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<?> update(@RequestBody @Valid CustomerDTO customerDTO) throws Exception {
-		
-		Customer customer=customerMapper.toCustomer(customerDTO);
-		
-		customer=customerService.update(customer);
-		customerDTO=customerMapper.toCustomerDTO(customer);
-		
+
+		Customer customer = customerMapper.toCustomer(customerDTO);
+
+		customer = customerService.update(customer);
+		customerDTO = customerMapper.toCustomerDTO(customer);
+
 		return ResponseEntity.ok().body(customerDTO);
-		
+
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) throws Exception {
 
 		customerService.deleteById(id);
-		
+
 		return ResponseEntity.ok().body(null);
 
 	}

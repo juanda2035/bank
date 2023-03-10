@@ -23,20 +23,20 @@ import com.bank.domain.DocumentType;
 @TestMethodOrder(OrderAnnotation.class)
 @Rollback(false)
 class CustomerRepositoryTest {
-	
+
 	@Autowired
 	CustomerRepository customerRepository;
-	
+
 	@Autowired
 	DocumentTypRepository documentTypRepository;
 
 	@Test
 	@Order(1)
-	@Transactional(readOnly = false,  propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	void debeCrearUnCustomer() {
-		//Arrange
-		DocumentType documentType=null;
-		Customer customer=new Customer();
+		// Arrange
+		DocumentType documentType = null;
+		Customer customer = new Customer();
 		customer.setAccounts(null);
 		customer.setAddress("Avenidad siempre viva 123");
 		customer.setCustId(2020);
@@ -46,72 +46,71 @@ class CustomerRepositoryTest {
 		customer.setPhone("5555555");
 		customer.setRegisteredAccounts(null);
 		customer.setToken(UUID.randomUUID().toString().toUpperCase());
-		
-		Optional<DocumentType> documentTypeOptional=documentTypRepository.findById(1);	
-		if(documentTypeOptional.isPresent()==false) {
-			documentType=documentTypeOptional.get();
 
-			}
-		
+		Optional<DocumentType> documentTypeOptional = documentTypRepository.findById(1);
+		if (documentTypeOptional.isPresent() == false) {
+			documentType = documentTypeOptional.get();
+
+		}
+
 		customer.setDocumentType(documentType);
-		
-		//Act
+
+		// Act
 		customerRepository.save(customer);
-		
-		//Assert
+
+		// Assert
 		assertNotNull(customer);
-		
-		
+
 	}
-	
+
 	@Test
 	@Order(2)
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	void debeConsultarUnCustomer() {
-		//Arrange
-		Optional<Customer> customerOptional=null;
-		
-		//Act
-		customerOptional=customerRepository.findById(2020);
-		
-		//Assert
+		// Arrange
+		Optional<Customer> customerOptional = null;
+
+		// Act
+		customerOptional = customerRepository.findById(2020);
+
+		// Assert
 		assertNotNull(customerOptional.isPresent());
 	}
-	
+
 	@Test
 	@Order(3)
-	@Transactional(readOnly = false,  propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	void debeModificarUnCustomer() {
-		//Arrange
-		Optional<Customer> customerOptional=null;
-		Customer customer=null;
-		customerOptional=customerRepository.findById(2020);
+		// Arrange
+		Optional<Customer> customerOptional = null;
+		Customer customer = null;
+		customerOptional = customerRepository.findById(2020);
 		assertTrue(customerOptional.isPresent());
-		
-		customer=customerOptional.get()	;
+
+		customer = customerOptional.get();
 		customer.setEnable(false);
-		
-		//Act
+
+		// Act
 		customerRepository.save(customer);
 
-		//Assert
-		
+		// Assert
+
 		assertFalse(customer.getEnable());
-		
+
 	}
-	
+
 	@Test
 	@Order(4)
-	@Transactional(readOnly = false,  propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	void debeBorrarUnCustomer() {
-		//Arrange
-		Optional<Customer> customerOptional=null;
-		Customer customer=null;
-		customerOptional=customerRepository.findById(2020);
-		assertTrue(customerOptional.isPresent());			
-		customer=customerOptional.get()	;
-				
-		//Act
+		// Arrange
+		Optional<Customer> customerOptional = null;
+		Customer customer = null;
+		customerOptional = customerRepository.findById(2020);
+		assertTrue(customerOptional.isPresent());
+		customer = customerOptional.get();
+
+		// Act
 		customerRepository.delete(customer);
 
 	}

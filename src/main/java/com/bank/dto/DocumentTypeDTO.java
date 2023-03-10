@@ -1,6 +1,5 @@
 package com.bank.dto;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,40 +12,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO {
+public class DocumentTypeDTO {
 
 	@NotNull
 	@Min(1)
-	private Integer custId;
-
-	@NotNull
-	@NotEmpty
-	@Size(min = 4, max = 255)
-	private String address;
-
-	@NotNull
-	@NotEmpty
-	@Size(min = 4, max = 255)
-	@Email
-	private String email;
+	private Integer dotyId;
 
 	@NotNull
 	private Boolean enable;
 
 	@NotNull
 	@NotEmpty
-	@Size(min = 4, max = 255)
+	@Size(min = 4, max = 200)
 	private String name;
 
 	@NotNull
-	@NotEmpty
-	@Size(min = 4, max = 255)
-	private String phone;
-
-	private String token;
-
-	@NotNull
 	@Min(0)
-	private Integer dotyId;
+	private Integer custId;
 
 }

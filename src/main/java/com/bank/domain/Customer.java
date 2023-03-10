@@ -36,17 +36,17 @@ public class Customer implements Serializable {
 	@Id
 	@Column(name = "cust_id")
 	@NotNull
-	@Min(0)
+	@Min(1)
 	private Integer custId;
 
 	@NotNull
 	@NotEmpty
-	@Size(min=4, max=255)
+	@Size(min = 4, max = 255)
 	private String address;
 
 	@NotNull
 	@NotEmpty
-	@Size(min=4, max=255)
+	@Size(min = 4, max = 255)
 	@Email
 	private String email;
 
@@ -55,12 +55,12 @@ public class Customer implements Serializable {
 
 	@NotNull
 	@NotEmpty
-	@Size(min=4, max=255)
+	@Size(min = 4, max = 255)
 	private String name;
 
 	@NotNull
 	@NotEmpty
-	@Size(min=4, max=255)
+	@Size(min = 4, max = 255)
 	private String phone;
 
 	private String token;
@@ -77,5 +77,7 @@ public class Customer implements Serializable {
 	// bi-directional many-to-one association to RegisteredAccount
 	@OneToMany(mappedBy = "customer")
 	private List<RegisteredAccount> registeredAccounts;
+
+	
 
 }
